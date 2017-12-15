@@ -189,5 +189,7 @@ Cursor c =DeepSQL.getInstance().queryBySQL("sql");
 
 # 特别说明
 如果有新的需求可以报给我补充，谢谢。
+也欢迎关注我的公众号
+![](http://upload-images.jianshu.io/upload_images/1483670-a6007f9989aa35a3.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
