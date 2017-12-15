@@ -39,28 +39,38 @@ public class DeepSQL {
         this.sqlInterface = sqlInterface;
     }
 
-    public void init(Context context, String dbname, int version){
+    public void init(Context context, String name, int version){
         if (sqlInterface ==null){
             sqlInterface = new SqlInterface() {
                 @Override
                 public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-                    Logger.single(C.E,"no SqlInterface");
+                    Logger.single(C.E,"onUpgrade no SqlInterface");
+                }
+
+                @Override
+                public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+                    Logger.single(C.E,"onDowngrade no SqlInterface");
                 }
             };
         }
-        mySql = new MySql(context,dbname,null,1,sqlInterface);
+        mySql = new MySql(context,name,null,version,sqlInterface);
 
     }
-    public void init(Context context, String dbname, CursorFactory factory, int version){
+    public void init(Context context, String name, CursorFactory factory, int version){
         if (sqlInterface ==null){
             sqlInterface = new SqlInterface() {
                 @Override
                 public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-                    Logger.single(C.E,"no SqlInterface");
+                    Logger.single(C.E,"onUpgrade no SqlInterface");
+                }
+
+                @Override
+                public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+                    Logger.single(C.E,"onDowngrade no SqlInterface");
                 }
             };
         }
-        mySql = new MySql(context,dbname,factory,1,sqlInterface);
+        mySql = new MySql(context,name,factory,version,sqlInterface);
     }
     public void create(Class<?> clazz){
         StringBuilder sb = new StringBuilder();

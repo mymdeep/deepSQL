@@ -8,4 +8,5 @@ import android.database.sqlite.SQLiteDatabase;
 
 public interface SqlInterface {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion);
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion);
 }

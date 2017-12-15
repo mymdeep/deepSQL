@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import deep.com.deepsql.interfaces.SqlInterface;
 import deep.com.deepsql.log.C;
 import deep.com.deepsql.log.Logger;
 import org.json.JSONArray;
@@ -20,6 +22,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DeepSQL.getInstance().sqlInterface = new SqlInterface() {
+            @Override
+            public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+                Logger.single(C.E,"onUpgrade myself");
+            }
+
+            @Override
+            public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+                Logger.single(C.E,"onUpgrade myself");
+            }
+        };
         DeepSQL.getInstance().init(getApplication(),"demo.db",1);
         findViewById(R.id.c_create).setOnClickListener(new OnClickListener() {
             @Override

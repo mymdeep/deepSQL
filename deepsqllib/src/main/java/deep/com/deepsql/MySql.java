@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import deep.com.deepsql.interfaces.SqlInterface;
+import deep.com.deepsql.log.C;
+import deep.com.deepsql.log.Logger;
 
 /**
  * Created by wangfei on 2017/12/9.
@@ -43,6 +45,12 @@ public class MySql extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        Logger.single(C.E,"onUpgrade");
         sqlInterface.onUpgrade(sqLiteDatabase,oldVersion,newVersion);
+    }
+
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        super.onDowngrade(db, oldVersion, newVersion);
     }
 }
