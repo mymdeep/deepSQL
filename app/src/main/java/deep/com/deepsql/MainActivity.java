@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.c_select).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<Object> list =  DeepSQL.getInstance().selectObjects(Person.class,"person");
+                ArrayList<Object> list =  DeepSQL.getInstance().selectObjectsBySQL(Person.class,"select * from person where id = 5");
                 for (Object o:list){
                     Person p = (Person)o;
                     Logger.mutlInfo(C.E,p.getName(),p.getAge()+"");
@@ -126,21 +126,50 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        findViewById(R.id.a_update).setOnClickListener(new OnClickListener() {
+        findViewById(R.id.j_update).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                JSONArray array =  DeepSQL.getInstance().selectJsonArryBySQL("select * from person where id = 5");
-                Logger.jsonArry(array);
+                JSONObject jsonObject = new JSONObject();
+                Random random = new Random();
+                int age = random.nextInt();
+                try {
+                    jsonObject.put("name","jim");
+                    jsonObject.put("age",age);
+                    DeepSQL.getInstance().update("person","id=?",new String[]{"5"},jsonObject);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
+            }
+        });
+        findViewById(R.id.c_update).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Random random = new Random();
+                int age = random.nextInt(100);
+                Person person  = new Person();
+                person.setName("john");
+                person.setAge(age);
+
+                DeepSQL.getInstance().update("person","id=?",new String[]{"5"},person);
             }
         });
         findViewById(R.id.a_del).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                JSONArray array =  DeepSQL.getInstance().selectJsonArryBySQL("select * from person where id = 5");
-                Logger.jsonArry(array);
+                 DeepSQL.getInstance().del("person","id=?",new String[]{"6"});
+
+
+            }
+        });
+        findViewById(R.id.a_deltable).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                DeepSQL.getInstance().dropTable("person");
+
 
             }
         });
