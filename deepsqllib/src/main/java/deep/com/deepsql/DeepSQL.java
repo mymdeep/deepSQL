@@ -251,8 +251,8 @@ public class DeepSQL {
                         fd.setAccessible(true);
                         Logger.single(C.W,fd.getName());
                         DBUtils.setField(fd,object,fieldType,cursor);
-                        objects.add(object);
                     }
+                    objects.add(object);
                 } catch (InstantiationException | IllegalAccessException e) {
                     Logger.error("selectObjects:"+e.getMessage());
                 }
@@ -260,6 +260,7 @@ public class DeepSQL {
             }
             cursor.close();
         }
+
         return objects;
     }
     public JSONArray selectJsonArry( String name){
@@ -275,8 +276,8 @@ public class DeepSQL {
                     JSONObject jsonObject = new JSONObject();
                     for (int i= 0 ;i<cursor.getColumnCount();i++){
                         jsonObject.put(cursor.getColumnName(i),cursor.getString(i));
-                        arry.put(jsonObject);
                     }
+                    arry.put(jsonObject);
                 }  catch (JSONException e) {
                     Logger.error("selectObjects:"+e.getMessage());
                 }
@@ -284,6 +285,7 @@ public class DeepSQL {
             }
             cursor.close();
         }
+
         return arry;
     }
     public ArrayList<Object> selectObjects(Class<?> clazz ,String name){
@@ -297,6 +299,7 @@ public class DeepSQL {
                 String key = iterator.next().toString();
                 DBUtils.setContentValue(contentValues,j.opt(key),key);
             }
+            Logger.single(C.E,"contentValues ="+contentValues.size());
             getR().update(name, contentValues, sql, whereArgs);
         }
     }

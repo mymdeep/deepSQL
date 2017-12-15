@@ -73,8 +73,8 @@ public class DBUtils {
         if (object == null){
             return;
         }
-        String type = object.getClass().getSimpleName();
-        String value = " text ";
+        String type = object.getClass().getSimpleName().toLowerCase();
+
         if (type.contains("string")) {
            values.put(key,(String)object);
         } else if (type.contains("int")) {
