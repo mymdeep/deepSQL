@@ -1,0 +1,8 @@
+{
+  "name1":"String",
+  "name2":"int",
+  "name3":"boolean",
+  "name4":"float",
+  "name5":"double",
+  "name6":"long"
+}
