@@ -117,6 +117,12 @@
             android:id="@+id/c_update"
             android:text="class更新"
             />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/s_update"
+            android:text="相似更新"
+            />
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
@@ -135,6 +141,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/a_del"
             android:text="删除"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/c_del"
+            android:text="class删除"
             />
     </LinearLayout>
     <TextView

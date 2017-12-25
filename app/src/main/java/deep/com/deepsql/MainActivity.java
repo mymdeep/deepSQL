@@ -155,11 +155,35 @@ public class MainActivity extends AppCompatActivity {
                 DeepSQL.getInstance().update("person","id=?",new String[]{"5"},person);
             }
         });
+        findViewById(R.id.s_update).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Random random = new Random();
+                int age = random.nextInt(100);
+                Person person  = new Person();
+                person.setName("john");
+                person.setAge(age);
+
+
+                DeepSQL.getInstance().update(person,"name");
+            }
+        });
         findViewById(R.id.a_del).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
 
                  DeepSQL.getInstance().del("person","id=?",new String[]{"6"});
+
+
+            }
+        });
+        findViewById(R.id.c_del).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Person person  = new Person();
+                person.setName("jim");
+
+                DeepSQL.getInstance().del(person,"name");
 
 
             }

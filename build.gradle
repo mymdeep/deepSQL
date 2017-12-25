@@ -14,10 +14,10 @@ buildscript {
     }
 }
 ext {
-    siteUrl = 'https://github.com/mymdeep/umeng_share'
-    gitUrl = 'https://github.com/mymdeep/umeng_share.git'
+    siteUrl = 'https://github.com/mymdeep/deepSQL'
+    gitUrl = 'https://github.com/mymdeep/deepSQL.git'
     group = "com.deep"
-    version = "1.0"
+    version = "1.2"
     id = 'mymdeep'
     name = 'wangfei'
     email =  'mymdeep@vip.qq.com'

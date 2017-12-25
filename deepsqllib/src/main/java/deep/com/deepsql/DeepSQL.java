@@ -322,9 +322,81 @@ public class DeepSQL {
 
         }
     }
+    public void update(Serializable serializable,String... args){
+        HashMap<String,String > map = new HashMap<String,String>();
+        if (getR()!=null){
+            ContentValues contentValues = new ContentValues();
+            Field[] fields = serializable.getClass().getDeclaredFields();
+            String tablename = serializable.getClass().getSimpleName();
+            for (Field fd : fields) {
+                String fieldName = fd.getName();
+                String fieldType = fd.getType().getName();
+                fd.setAccessible(true);
+                try {
+                    Object object =fd.get(serializable);
+                    for (int m = 0 ; m < args.length; m++){
+                       if (args[m].equals(fieldName)){
+                           map.put(args[m],object.toString());
+                       }
+                    }
+                    DBUtils.setContentValue(contentValues,object,fieldName);
+                } catch (IllegalAccessException e) {
+                    Logger.error("insert class:"+e.getMessage());
+                }
+            }
+
+            StringBuilder sb = new StringBuilder();
+            String[] s= new String[map.size()];
+            int i = 0;
+                for (String key:map.keySet()){
+                    sb.append(key).append("=?");
+                        sb.append(" and ");
+                    s[i] = map.get(key);
+                }
+                String sql = sb.substring(0,sb.length()-4);
+
+
+
+            getR().update(tablename, contentValues, sql,s);
+        }
+    }
     public void del(String name,String sql,String[] whereArgs){
         if (getW()!=null){
             getW().delete(name,sql, whereArgs);
+        }
+    }
+    public void del(Serializable serializable,String... args){
+        HashMap<String,String > map = new HashMap<String,String>();
+        if (getW()!=null){
+            Field[] fields = serializable.getClass().getDeclaredFields();
+            String tablename = serializable.getClass().getSimpleName();
+            for (Field fd : fields) {
+                String fieldName = fd.getName();
+                String fieldType = fd.getType().getName();
+                fd.setAccessible(true);
+                try {
+                    Object object =fd.get(serializable);
+                    for (int m = 0 ; m < args.length; m++){
+                        if (args[m].equals(fieldName)){
+                            map.put(args[m],object.toString());
+                        }
+                    }
+
+                } catch (IllegalAccessException e) {
+                    Logger.error("del class:"+e.getMessage());
+                }
+            }
+            StringBuilder sb = new StringBuilder();
+            String[] s= new String[map.size()];
+            int i = 0;
+            for (String key:map.keySet()){
+                sb.append(key).append("=?");
+                sb.append(" and ");
+                s[i] = map.get(key);
+            }
+            String sql = sb.substring(0,sb.length()-4);
+            Logger.error("sql="+sql+"  s="+s.length);
+            getW().delete(tablename,sql, s);
         }
     }
     public void dropTable(String name){
