@@ -145,11 +145,30 @@ ArrayList<Object> list =  DeepSQL.getInstance().selectObjects(Person.class,"pers
 ```
     DeepSQL.getInstance().update("person","id=?",new String[]{"5"},person);
 ```
+## 相似更新
+当传入一个序列化的实例时，如果实例中有些内容是不用变的，可以使用这种方式：
 
+```
+  Random random = new Random();
+                int age = random.nextInt(100);
+                Person person  = new Person();
+                person.setName("john");
+                person.setAge(age);
+DeepSQL.getInstance().update(person,"name");
+```
+上述代码中，`DeepSQL.getInstance().update(person,"name");`表示更新person表，其中name为john的行
 # 删除
 ```
  DeepSQL.getInstance().del("person","id=?",new String[]{"6"});
 ```
+## 条件删除
+
+```
+  Person person  = new Person();
+                person.setName("jim");                DeepSQL.getInstance().del(person,"name");
+```
+
+上传表示删除person表中名为jim的行。
 # 删除表
 ```
   DeepSQL.getInstance().dropTable("person");
